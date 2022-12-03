@@ -1,0 +1,2 @@
+void goStartMenu();
+void doStartMenu();

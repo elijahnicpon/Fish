@@ -1,0 +1,2 @@
+void goInfoMenu();
+void doInfoMenu();

@@ -1,0 +1,2 @@
+void goDeathPlastic();
+void doDeathPlastic();

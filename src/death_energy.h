@@ -1,0 +1,2 @@
+void goDeathEnergy();
+void doDeathEnergy();
