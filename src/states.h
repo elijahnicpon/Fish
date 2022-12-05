@@ -4,13 +4,20 @@
 #include "pause.h"
 #include "about_menu.h"
 #include "death_energy.h"
+#include "death_plastic.h"
+#include "death_boat.h"
+#include "death_oil.h"
+#include "death_cyanide.h"
+#include "death_dynamite.h"
+#include "death_shark.h"
 #include "upgrade_menu.h"
 #include "controls_menu.h"
-#include "death_plastic.h"
 #include "sound.h"
+#include "win.h"
 
 
-enum STATE {START_MENU, INFO_MENU, CONTROLS_MENU, ABOUT_MENU, GAME, PAUSE, UPGRADE_MENU, END_ANIMATION, END_MENU, DEATH_ENERGY, DEATH_PLASTIC, DEATH_OIL, DAETH_BOAT, DEATH_SHARK, DEATH_CYANIDE, DEATH_BLAST};
+
+enum STATE {START_MENU, INFO_MENU, CONTROLS_MENU, ABOUT_MENU, GAME, PAUSE, UPGRADE_MENU, END_ANIMATION, END_MENU, DEATH_ENERGY, DEATH_PLASTIC, DEATH_OIL, DEATH_BOAT, DEATH_SHARK, DEATH_CYANIDE, DEATH_BLAST};
 int state;
 int shells_owned;
 int time;

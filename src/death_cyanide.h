@@ -1,0 +1,2 @@
+void goDeathCyanide();
+void doDeathCyanide();

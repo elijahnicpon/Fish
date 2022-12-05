@@ -1,0 +1,2 @@
+void doWin();
+void goWin();

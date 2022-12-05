@@ -67,24 +67,24 @@ main:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	push	{r4, r7, fp, lr}
-	ldr	r3, .L22
+	ldr	r3, .L28
 	mov	lr, pc
 	bx	r3
-	ldr	r3, .L22+4
+	ldr	r3, .L28+4
 	mov	lr, pc
 	bx	r3
-	ldr	r0, .L22+8
-	ldr	r3, .L22+12
+	ldr	r0, .L28+8
+	ldr	r3, .L28+12
 	mov	lr, pc
 	bx	r3
-	ldr	r6, .L22+16
-	ldr	r7, .L22+20
-	ldr	r5, .L22+24
-	ldr	fp, .L22+28
-	ldr	r10, .L22+32
-	ldr	r9, .L22+36
-	ldr	r8, .L22+40
-	ldr	r4, .L22+44
+	ldr	r6, .L28+16
+	ldr	r7, .L28+20
+	ldr	r5, .L28+24
+	ldr	fp, .L28+28
+	ldr	r10, .L28+32
+	ldr	r9, .L28+36
+	ldr	r8, .L28+40
+	ldr	r4, .L28+44
 .L7:
 	ldr	r2, [r6]
 	ldrh	r3, [r7]
@@ -92,65 +92,100 @@ main:
 	strh	r3, [r5]	@ movhi
 	ldrh	r3, [r4, #48]
 	strh	r3, [r7]	@ movhi
-	cmp	r2, #10
+	cmp	r2, #15
 	ldrls	pc, [pc, r2, asl #2]
 	b	.L8
 .L10:
+	.word	.L24
+	.word	.L23
+	.word	.L22
+	.word	.L21
+	.word	.L20
+	.word	.L19
 	.word	.L18
+	.word	.L8
 	.word	.L17
 	.word	.L16
 	.word	.L15
 	.word	.L14
 	.word	.L13
 	.word	.L12
-	.word	.L8
-	.word	.L8
 	.word	.L11
 	.word	.L9
 .L9:
-	ldr	r3, .L22+48
+	ldr	r3, .L28+48
 	mov	lr, pc
 	bx	r3
 	b	.L7
 .L11:
-	ldr	r3, .L22+52
+	ldr	r3, .L28+52
 	mov	lr, pc
 	bx	r3
 	b	.L7
 .L12:
-	ldr	r3, .L22+56
+	ldr	r3, .L28+56
 	mov	lr, pc
 	bx	r3
 	b	.L7
 .L13:
-	ldr	r3, .L22+60
+	ldr	r3, .L28+60
 	mov	lr, pc
 	bx	r3
 	b	.L7
 .L14:
-	ldr	r3, .L22+64
+	ldr	r3, .L28+64
 	mov	lr, pc
 	bx	r3
 	b	.L7
 .L15:
+	ldr	r3, .L28+68
+	mov	lr, pc
+	bx	r3
+	b	.L7
+.L16:
+	ldr	r3, .L28+72
+	mov	lr, pc
+	bx	r3
+	b	.L7
+.L17:
+	ldr	r3, .L28+76
+	mov	lr, pc
+	bx	r3
+	b	.L7
+.L18:
+	ldr	r3, .L28+80
+	mov	lr, pc
+	bx	r3
+	b	.L7
+.L19:
+	ldr	r3, .L28+84
+	mov	lr, pc
+	bx	r3
+	b	.L7
+.L20:
+	ldr	r3, .L28+88
+	mov	lr, pc
+	bx	r3
+	b	.L7
+.L21:
 	mov	lr, pc
 	bx	r9
 	b	.L7
-.L16:
+.L22:
 	mov	lr, pc
 	bx	r8
 	b	.L7
-.L17:
+.L23:
 	mov	lr, pc
 	bx	r10
 	b	.L7
-.L18:
+.L24:
 	mov	lr, pc
 	bx	fp
 	b	.L7
-.L23:
+.L29:
 	.align	2
-.L22:
+.L28:
 	.word	init
 	.word	mgba_open
 	.word	.LC0
@@ -163,8 +198,14 @@ main:
 	.word	doAboutMenu
 	.word	doControlsMenu
 	.word	67109120
+	.word	doDeathDynamite
+	.word	doDeathCyanide
+	.word	doDeathShark
+	.word	doDeathBoat
+	.word	doDeathOil
 	.word	doDeathPlastic
 	.word	doDeathEnergy
+	.word	doWin
 	.word	doUpgradeMenu
 	.word	doPause
 	.word	doGame

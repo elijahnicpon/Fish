@@ -941,7 +941,7 @@ shieldUpgradeCosts:
 	.word	250
 	.word	500
 	.word	1000
-	.word	0
+	.word	9999
 	.type	energyUpgradeCosts, %object
 	.size	energyUpgradeCosts, 24
 energyUpgradeCosts:
@@ -950,7 +950,7 @@ energyUpgradeCosts:
 	.word	100
 	.word	250
 	.word	500
-	.word	0
+	.word	9999
 	.type	agilityUpgradeCosts, %object
 	.size	agilityUpgradeCosts, 24
 agilityUpgradeCosts:
@@ -959,5 +959,5 @@ agilityUpgradeCosts:
 	.word	50
 	.word	100
 	.word	250
-	.word	0
+	.word	9999
 	.ident	"GCC: (devkitARM release 53) 9.1.0"

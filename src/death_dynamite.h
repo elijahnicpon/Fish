@@ -1,0 +1,2 @@
+void goDeathDynamite();
+void doDeathDynamite();

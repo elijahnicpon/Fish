@@ -85,13 +85,13 @@ void doGame() {
     }
 
 
-    if ((time / 60) > 120 + 4) {
+    if ((time / 60) > 120 + 2) {
         prepWin();
     } else {
         checkButtons();
     }
-    if ((time / 60) > 120 + 4 + 2) {
-        //goWin();
+    if ((time / 60) > 120 + 3 + 2) {
+        goWin();
     }
     DMANow(3, shadowOAM, OAM, 512);
 }
@@ -272,7 +272,9 @@ void updateAndDrawPlayer() {
 void prepWin() {
     player.x += ((player.x / 8) > 120) ? -3 : 3;
     player.y -= 1;
-    //SPRITEPALETTE[5] = COLOR(0,0,0);
+    if (player.y < -16) {
+        player.y = -16;
+    }
 }
 
 void checkButtons() {
@@ -523,6 +525,7 @@ void goGame(int seed) {
 }
 
 void initPlayer() {
+    shells_owned = 0;
     player.width = 9;
     player.x = (120 - (player.width / 2)) * 8;
     player.prevX = 120 * 8;

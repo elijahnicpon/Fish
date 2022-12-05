@@ -33,18 +33,38 @@ void doAboutMenu();
 void goDeathEnergy();
 void doDeathEnergy();
 # 7 "states.h" 2
-# 1 "upgrade_menu.h" 1
-void doUpgradeMenu();
-void goUpgradeMenu();
-# 8 "states.h" 2
-# 1 "controls_menu.h" 1
-void goControlsMenu();
-void doControlsMenu();
-# 9 "states.h" 2
 # 1 "death_plastic.h" 1
 void goDeathPlastic();
 void doDeathPlastic();
+# 8 "states.h" 2
+# 1 "death_boat.h" 1
+void doDeathBoat();
+void goDeathBoat();
+# 9 "states.h" 2
+# 1 "death_oil.h" 1
+void doDeathOil();
+void goDeathOil();
 # 10 "states.h" 2
+# 1 "death_cyanide.h" 1
+void goDeathCyanide();
+void doDeathCyanide();
+# 11 "states.h" 2
+# 1 "death_dynamite.h" 1
+void goDeathDynamite();
+void doDeathDynamite();
+# 12 "states.h" 2
+# 1 "death_shark.h" 1
+void goDeathShark();
+void doDeathShark();
+# 13 "states.h" 2
+# 1 "upgrade_menu.h" 1
+void doUpgradeMenu();
+void goUpgradeMenu();
+# 14 "states.h" 2
+# 1 "controls_menu.h" 1
+void goControlsMenu();
+void doControlsMenu();
+# 15 "states.h" 2
 # 1 "sound.h" 1
 
 
@@ -70,10 +90,15 @@ typedef struct{
 
 SOUND soundA;
 SOUND soundB;
-# 11 "states.h" 2
+# 16 "states.h" 2
+# 1 "win.h" 1
+void doWin();
+void goWin();
+# 17 "states.h" 2
 
 
-enum STATE {START_MENU, INFO_MENU, CONTROLS_MENU, ABOUT_MENU, GAME, PAUSE, UPGRADE_MENU, END_ANIMATION, END_MENU, DEATH_ENERGY, DEATH_PLASTIC, DEATH_OIL, DAETH_BOAT, DEATH_SHARK, DEATH_CYANIDE, DEATH_BLAST};
+
+enum STATE {START_MENU, INFO_MENU, CONTROLS_MENU, ABOUT_MENU, GAME, PAUSE, UPGRADE_MENU, END_ANIMATION, END_MENU, DEATH_ENERGY, DEATH_PLASTIC, DEATH_OIL, DEATH_BOAT, DEATH_SHARK, DEATH_CYANIDE, DEATH_BLAST};
 int state;
 int shells_owned;
 int time;
@@ -246,9 +271,9 @@ int state, hOff, vOff, time;
 OBJ_ATTR shadowOAM[128];
 Player player;
 
-int shieldUpgradeCosts[6] = {50, 100, 250, 500, 1000, 0};
-int agilityUpgradeCosts[6] = {10, 25, 50, 100, 250, 0};
-int energyUpgradeCosts[6] = {5, 50, 100, 250, 500, 0};
+int shieldUpgradeCosts[6] = {50, 100, 250, 500, 1000, 9999};
+int agilityUpgradeCosts[6] = {10, 25, 50, 100, 250, 9999};
+int energyUpgradeCosts[6] = {5, 50, 100, 250, 500, 9999};
 int cheatUsed;
 
 void attemptUpgradeAgility();

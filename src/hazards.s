@@ -119,7 +119,7 @@ hazardFactory:
 	cmp	r1, #0
 	ble	.L13
 	ldr	r6, .L55+4
-	mov	r9, r0
+	mov	r5, r0
 	mov	r4, #0
 	mov	r3, r6
 	b	.L42
@@ -133,10 +133,10 @@ hazardFactory:
 	cmp	r2, #0
 	bne	.L15
 	mov	r3, #1
-	add	r10, r4, r4, lsl #3
-	add	r10, r4, r10, lsl r3
-	add	r10, r6, r10, lsl #2
-	str	r3, [r10, #68]
+	add	r9, r4, r4, lsl #3
+	add	r9, r4, r9, lsl r3
+	add	r9, r6, r9, lsl #2
+	str	r3, [r9, #68]
 	ldr	r8, .L55+8
 	mov	lr, pc
 	bx	r8
@@ -144,10 +144,10 @@ hazardFactory:
 	and	r3, r3, #1
 	mov	r2, r3
 	rsblt	r2, r3, #0
-	str	r2, [r10, #32]
-	lsl	r10, r4, #3
-	cmp	r9, #8
-	ldrls	pc, [pc, r9, asl #2]
+	str	r2, [r9, #32]
+	lsl	r9, r4, #3
+	cmp	r5, #8
+	ldrls	pc, [pc, r5, asl #2]
 	b	.L13
 .L17:
 	.word	.L24
@@ -162,10 +162,10 @@ hazardFactory:
 .L24:
 	mov	r1, #1
 	mov	r0, #0
-	mov	r2, #12
-	mov	r3, #22
-	add	r10, r10, r4
-	add	r4, r4, r10, lsl r1
+	mov	r2, #22
+	mov	r3, #18
+	add	r9, r9, r4
+	add	r4, r4, r9, lsl r1
 	add	r9, r6, r4, lsl #2
 	str	r0, [r9, #40]
 	str	r1, [r9, #68]
@@ -195,16 +195,16 @@ hazardFactory:
 	bne	.L26
 	mov	ip, #1
 	mov	r1, #608
-.L51:
+.L52:
 	mov	r2, #2
 	ldr	r3, [r9, #16]
 	rsb	r3, r3, r3, lsl #29
 	lsl	r3, r3, #3
-	add	r4, r6, r4, lsl r2
-.L52:
 	str	r3, [r9, #4]
-	ldr	r3, .L55+16
 	str	r5, [r9]
+	ldr	r3, .L55+16
+	add	r4, r6, r4, lsl r2
+.L53:
 	str	r0, [r9, #24]
 	str	r0, [r9, #28]
 	str	r0, [r9, #52]
@@ -218,23 +218,26 @@ hazardFactory:
 	bx	lr
 .L16:
 	mov	r0, #1
-	mov	r2, #8
-	mov	r1, #32
-	mov	r3, #59
-	add	r10, r10, r4
-	add	r4, r4, r10, lsl r0
+	mov	r3, #32
+	mov	ip, #8
+	mov	r1, #36
+	add	r9, r9, r4
+	add	r4, r4, r9, lsl r0
 	add	r10, r6, r4, lsl #2
-	str	r2, [r10, #40]
 	ldr	r2, .L55+20
+	str	ip, [r10, #40]
 	str	r0, [r10, #68]
-	str	r1, [r10, #16]
-	str	r1, [r10, #20]
-	str	r3, [r2]
+	str	r3, [r10, #16]
+	str	r3, [r10, #20]
+	str	r1, [r2]
 	ldr	r9, .L55+12
-	b	.L40
+	mov	lr, pc
+	bx	r8
+	b	.L51
 .L41:
 	mov	lr, pc
 	bx	r8
+.L51:
 	smull	r2, r3, r9, r0
 	asr	r5, r0, #31
 	add	r3, r3, r0
@@ -244,7 +247,6 @@ hazardFactory:
 	sub	r5, r0, r5, lsl #4
 	sub	r5, r5, r1
 	lsl	r5, r5, #3
-.L40:
 	mov	r0, r5
 	ldr	r2, [r10, #16]
 	bl	checkHazardSpawnLocation
@@ -258,7 +260,7 @@ hazardFactory:
 	lsl	r3, r3, #3
 	ldr	r0, [r7, #28]
 	str	r3, [r10, #4]
-	ldr	r3, .L55+16
+	ldr	r3, .L55+24
 	str	r2, [r10, #56]
 	str	r3, [r10, #72]
 	str	r0, [r10, #48]
@@ -268,7 +270,7 @@ hazardFactory:
 	str	r9, [r10, #52]
 	mov	lr, pc
 	bx	r8
-	ldr	r3, .L55+24
+	ldr	r3, .L55+28
 	smull	r2, r3, r0, r3
 	sub	r3, r3, r0, asr #31
 	add	r3, r3, r3, lsl r9
@@ -286,9 +288,9 @@ hazardFactory:
 	mov	r3, #7
 	mov	r0, #40
 	mov	r1, #52
-	mov	r2, #99
-	add	r10, r10, r4
-	add	r4, r4, r10, lsl ip
+	mov	r2, #59
+	add	r9, r9, r4
+	add	r4, r4, r9, lsl ip
 	add	r9, r6, r4, lsl #2
 	str	r3, [r9, #40]
 	ldr	r3, .L55+20
@@ -318,22 +320,24 @@ hazardFactory:
 	bl	checkHazardSpawnLocation
 	cmp	r0, #0
 	bne	.L36
-	mov	ip, #1
-	mov	r1, #768
-.L53:
 	mov	r2, #3
 	ldr	r3, [r9, #16]
 	rsb	r3, r3, r3, lsl #29
 	lsl	r3, r3, r2
+	str	r3, [r9, #4]
+	mov	ip, #1
+	mov	r1, #768
+	str	r5, [r9]
+	ldr	r3, .L55+32
 	add	r4, r6, r4, lsl #2
-	b	.L52
+	b	.L53
 .L19:
 	mov	r1, #1
 	mov	r0, #6
-	mov	r2, #43
+	mov	r2, #45
 	mov	r3, #20
-	add	r10, r10, r4
-	add	r4, r4, r10, lsl r1
+	add	r9, r9, r4
+	add	r4, r4, r9, lsl r1
 	add	r10, r6, r4, lsl #2
 	str	r0, [r10, #40]
 	str	r1, [r10, #68]
@@ -369,7 +373,7 @@ hazardFactory:
 	lsl	r3, r3, r1
 	ldr	r0, [r7, #4]
 	str	r3, [r10, #4]
-	ldr	r3, .L55+16
+	ldr	r3, .L55+36
 	str	r2, [r10, #56]
 	str	r3, [r10, #72]
 	str	r0, [r10, #48]
@@ -379,7 +383,7 @@ hazardFactory:
 	str	r9, [r10, #52]
 	mov	lr, pc
 	bx	r8
-	ldr	r3, .L55+24
+	ldr	r3, .L55+28
 	smull	r2, r3, r0, r3
 	sub	r3, r3, r0, asr #31
 	add	r3, r3, r3, lsl r9
@@ -397,9 +401,9 @@ hazardFactory:
 	mov	lr, #5
 	mov	r0, #24
 	mov	r1, #63
-	mov	r2, #59
+	mov	r2, #49
 	cmp	r3, #0
-	add	r3, r10, r4
+	add	r3, r9, r4
 	add	r3, r4, r3, lsl ip
 	add	r3, r6, r3, lsl #2
 	str	lr, [r3, #40]
@@ -411,57 +415,58 @@ hazardFactory:
 	beq	.L54
 	mov	lr, pc
 	bx	r8
-	ldr	r3, .L55+24
+	ldr	r3, .L55+28
 	smull	r2, r3, r0, r3
 	sub	r3, r3, r0, asr #31
 	add	r3, r3, r3, lsl #1
 	sub	r3, r0, r3
 	mvn	r3, r3
 .L38:
-	add	r5, r10, r4
+	add	r5, r9, r4
 	add	r5, r4, r5, lsl #1
 	add	r5, r6, r5, lsl #2
 	str	r3, [r5, #8]
 	mov	lr, pc
 	bx	r8
-	ldr	r3, .L55+28
-	smull	r2, r3, r0, r3
+	ldr	r3, .L55+40
+	smull	r1, r2, r3, r0
 	ldr	r1, [r5, #8]
 	cmp	r1, #0
 	mov	r1, #1
 	mov	ip, #3
-	asr	r2, r0, #31
-	rsb	r2, r2, r3, asr #4
-	add	r2, r2, r2, lsl #2
-	sub	r2, r0, r2, lsl #3
+	asr	r3, r0, #31
+	rsb	r3, r3, r2, asr #4
+	add	r3, r3, r3, lsl #2
+	sub	r3, r0, r3, lsl #3
 	mov	lr, #256
 	mov	r0, #0
-	add	r10, r10, r4
-	add	r4, r4, r10, lsl r1
-	add	r3, r6, r4, lsl #2
-	addle	r2, r2, #200
-	str	r2, [r6, r4, lsl #2]
-	ldr	r2, [r3, #16]
-	rsb	r2, r2, r2, lsl #29
-	lsl	r2, r2, ip
-	str	r2, [r3, #4]
-	ldr	r2, .L55+16
-	str	lr, [r3, #48]
-	str	ip, [r3, #36]
-	str	r2, [r3, #72]
-	str	r0, [r3, #24]
-	str	r0, [r3, #52]
-	str	r1, [r3, #28]
-	str	r1, [r3, #12]
+	add	r9, r9, r4
+	addle	r3, r3, #1488
+	add	r4, r4, r9, lsl r1
+	add	r2, r6, r4, lsl #2
+	addle	r3, r3, #12
+	str	r3, [r6, r4, lsl #2]
+	ldr	r3, [r2, #16]
+	rsb	r3, r3, r3, lsl #29
+	lsl	r3, r3, ip
+	str	r3, [r2, #4]
+	ldr	r3, .L55+44
+	str	lr, [r2, #48]
+	str	ip, [r2, #36]
+	str	r3, [r2, #72]
+	str	r0, [r2, #24]
+	str	r0, [r2, #52]
+	str	r1, [r2, #28]
+	str	r1, [r2, #12]
 	b	.L13
 .L21:
 	mov	ip, #1
 	mov	r3, #4
 	mov	r0, #40
 	mov	r1, #48
-	mov	r2, #99
-	add	r10, r10, r4
-	add	r4, r4, r10, lsl ip
+	mov	r2, #59
+	add	r9, r9, r4
+	add	r4, r4, r9, lsl ip
 	add	r9, r6, r4, lsl #2
 	str	r3, [r9, #40]
 	ldr	r3, .L55+20
@@ -491,15 +496,23 @@ hazardFactory:
 	bl	checkHazardSpawnLocation
 	cmp	r0, #0
 	bne	.L34
+	mov	r2, #3
+	ldr	r3, [r9, #16]
+	rsb	r3, r3, r3, lsl #29
+	lsl	r3, r3, r2
+	str	r3, [r9, #4]
 	mov	ip, #1
 	mov	r1, #776
+	str	r5, [r9]
+	ldr	r3, .L55+48
+	add	r4, r6, r4, lsl #2
 	b	.L53
 .L22:
 	mov	r2, #1
 	mov	r1, #2
 	mov	r3, #19
-	add	r10, r10, r4
-	add	r4, r4, r10, lsl r2
+	add	r9, r9, r4
+	add	r4, r4, r9, lsl r2
 	add	r9, r6, r4, lsl r1
 	str	r1, [r9, #40]
 	str	r2, [r9, #68]
@@ -529,15 +542,15 @@ hazardFactory:
 	bne	.L30
 	mov	ip, #1
 	mov	r1, #480
-	b	.L51
+	b	.L52
 .L23:
 	mov	r3, #1
 	mov	r2, #5
 	mov	ip, #15
 	mov	r0, #736
 	mov	r1, #0
-	add	r10, r10, r4
-	add	r4, r4, r10, lsl r3
+	add	r9, r9, r4
+	add	r4, r4, r9, lsl r3
 	add	r7, r6, r4, lsl #2
 	str	r2, [r7, #16]
 	ldr	r2, .L55+16
@@ -585,7 +598,7 @@ hazardFactory:
 .L54:
 	mov	lr, pc
 	bx	r8
-	ldr	r3, .L55+24
+	ldr	r3, .L55+28
 	smull	r2, r3, r0, r3
 	sub	r3, r3, r0, asr #31
 	add	r3, r3, r3, lsl #1
@@ -601,8 +614,13 @@ hazardFactory:
 	.word	-2004318071
 	.word	goDeathPlastic
 	.word	cooldownTimer
+	.word	goDeathDynamite
 	.word	1431655766
+	.word	goDeathCyanide
+	.word	goDeathShark
 	.word	1717986919
+	.word	goDeathBoat
+	.word	goDeathOil
 	.size	hazardFactory, .-hazardFactory
 	.align	2
 	.global	newShield
@@ -1117,6 +1135,7 @@ newHazard:
 	.word	mgba_printf
 	.word	1374389535
 	.size	newHazard, .-newHazard
+	.global	__aeabi_idiv
 	.global	__aeabi_idivmod
 	.align	2
 	.global	updateAndDrawHazards
@@ -1129,39 +1148,43 @@ updateAndDrawHazards:
 	@ args = 0, pretend = 0, frame = 8
 	@ frame_needed = 0, uses_anonymous_args = 0
 	push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
-	ldr	fp, .L173
+	ldr	r3, .L173
+	ldr	r4, [r3]
+	ldr	fp, .L173+4
+	sub	r5, r4, #1
+	str	r5, [r3]
 	ldr	r1, [fp]
-	add	r3, r1, r1, lsl #4
-	ldr	ip, .L173+4
-	ldr	r0, .L173+8
-	add	r3, r3, r3, lsl #8
-	add	r3, r3, r3, lsl #16
-	sub	r0, r0, r3
-	ldr	r2, [ip]
-	ldr	r3, .L173+12
-	sub	r2, r2, #1
-	cmp	r3, r0, ror #2
-	lsr	r3, r2, #31
-	movcc	r3, #0
-	ldr	r0, .L173+16
-	andcs	r3, r3, #1
-	cmp	r1, r0
-	movgt	r3, #0
-	andle	r3, r3, #1
-	cmp	r3, #0
-	str	r2, [ip]
+	ldr	r3, .L173+8
 	sub	sp, sp, #28
+	mov	r0, #120
+	mov	lr, pc
+	bx	r3
+	ldr	r3, .L173+12
+	ldr	r4, [r3]
+	mov	r1, r0
+	ldr	r3, .L173+16
+	mov	r0, r4
+	mov	lr, pc
+	bx	r3
+	ldr	r3, .L173+20
+	cmp	r4, r3
+	movgt	r4, #0
+	movle	r4, #1
+	cmp	r1, #0
+	and	r4, r4, r5, lsr #31
+	movne	r4, #0
+	cmp	r4, #0
 	bne	.L169
 .L136:
-	ldr	r9, .L173+20
+	ldr	r9, .L173+24
 	ldr	r3, [r9]
 	cmp	r3, #0
 	ble	.L135
 	mov	r6, #0
-	ldr	r4, .L173+24
-	ldr	r8, .L173+28
-	ldr	r7, .L173+32
-	ldr	r10, .L173+36
+	ldr	r4, .L173+28
+	ldr	r8, .L173+32
+	ldr	r7, .L173+36
+	ldr	r10, .L173+40
 	b	.L154
 .L170:
 	ldr	r2, [r4, #4]
@@ -1190,7 +1213,7 @@ updateAndDrawHazards:
 	beq	.L144
 	cmp	r0, #0
 	movge	r1, r0
-	ldr	lr, .L173+40
+	ldr	lr, .L173+44
 	ldr	ip, [r4, #36]
 	and	r1, lr, r1, asr #3
 	orr	r1, r1, ip, lsl #14
@@ -1215,14 +1238,14 @@ updateAndDrawHazards:
 	cmp	r0, #0
 	movlt	r0, ip
 	asr	r3, r3, #3
-	ldr	lr, [r7, #20]
-	ldr	ip, [r7, #24]
 	str	r3, [sp]
+	ldr	lr, [r7, #20]
 	ldr	r3, [r7, #8]
-	asr	r1, r2, #3
+	ldr	ip, [r7, #24]
 	stmib	sp, {r3, ip, lr}
-	ldr	r2, [r4, #20]
+	asr	r1, r2, #3
 	ldr	r3, [r4, #16]
+	ldr	r2, [r4, #20]
 	asr	r0, r0, #3
 	mov	lr, pc
 	bx	r10
@@ -1243,8 +1266,7 @@ updateAndDrawHazards:
 	movgt	r3, #0
 	strgt	r3, [r4, #68]
 	bgt	.L152
-	ldr	r2, .L173+44
-	ldr	r1, [r2]
+	ldr	r1, [fp]
 	ldr	r2, [r4, #40]
 	add	r3, r3, r1
 	cmp	r2, #6
@@ -1283,10 +1305,11 @@ updateAndDrawHazards:
 	cmp	r3, #0
 	beq	.L171
 .L166:
+	ldr	r3, .L173+12
 	str	r2, [sp, #16]
-	ldr	r3, .L173+48
+	ldr	r0, [r3]
 	ldr	r1, [r4, #60]
-	ldr	r0, [fp]
+	ldr	r3, .L173+16
 	mov	lr, pc
 	bx	r3
 	cmp	r1, #0
@@ -1311,7 +1334,7 @@ updateAndDrawHazards:
 .L144:
 	cmp	r0, #0
 	movge	r1, r0
-	ldr	lr, .L173+40
+	ldr	lr, .L173+44
 	ldr	ip, [r4, #36]
 	and	r1, lr, r1, asr #3
 	orr	r1, r1, ip, lsl #14
@@ -1324,9 +1347,12 @@ updateAndDrawHazards:
 	pop	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
 	bx	lr
 .L149:
-	ldr	r3, .L173+52
+	ldr	r3, .L173+48
 	mov	lr, pc
 	bx	r3
+	mov	r3, #0
+	ldr	r2, .L173+52
+	str	r3, [r2]
 	ldr	r3, [r4, #72]
 	mov	lr, pc
 	bx	r3
@@ -1335,7 +1361,7 @@ updateAndDrawHazards:
 	ldr	r0, [r4, #64]
 	str	r3, [sp, #20]
 	str	r2, [sp, #16]
-	ldr	r3, .L173+48
+	ldr	r3, .L173+16
 	ldr	r1, [r4, #56]
 	add	r0, r0, #1
 	mov	lr, pc
@@ -1353,10 +1379,11 @@ updateAndDrawHazards:
 .L174:
 	.align	2
 .L173:
-	.word	time
 	.word	cooldownTimer
-	.word	143165576
-	.word	71582788
+	.word	gameSpeed
+	.word	__aeabi_idiv
+	.word	time
+	.word	__aeabi_idivmod
 	.word	7199
 	.word	.LANCHOR0
 	.word	hazards
@@ -1364,9 +1391,8 @@ updateAndDrawHazards:
 	.word	player
 	.word	collision
 	.word	511
-	.word	gameSpeed
-	.word	__aeabi_idivmod
 	.word	pauseSounds
+	.word	shieldTime
 	.size	updateAndDrawHazards, .-updateAndDrawHazards
 	.global	NUM_HAZARDS
 	.comm	hazards,1520,4

@@ -10,7 +10,7 @@
 
 #include "shield.h"
 
-int time, shieldTime, cooldownTimer;
+int time, shieldTime, cooldownTimer, gameSpeed;
 Player player;
 OBJ_ATTR shadowOAM[128];
 
@@ -145,7 +145,7 @@ void hazardFactory(int htype) {
                 case SHARK:
                     hazards[i].hazardType = SHARK;
                     hazards[i].active = 1;
-                    hazards[i].height = 43;
+                    hazards[i].height = 45;
                     hazards[i].width = 20;
 
                     x = (rand() % 240 - hazards[i].width) * 8;
@@ -156,7 +156,7 @@ void hazardFactory(int htype) {
                     
                     hazards[i].y = -hazards[i].height * 8;
                     hazards[i].size = 3;
-                    hazards[i].deathfn = goDeathPlastic;
+                    hazards[i].deathfn = goDeathShark;
                     
                     //animation
                     hazards[i].isAnimated = 1;
@@ -175,7 +175,7 @@ void hazardFactory(int htype) {
 
                 case OIL:
 
-                    cooldownTimer = 99;
+                    cooldownTimer = 59;
 
                     hazards[i].hazardType = OIL;
                     hazards[i].active = 1;
@@ -192,7 +192,7 @@ void hazardFactory(int htype) {
                     hazards[i].spriteIndex = OFFSET(8,24,32);
                     hazards[i].size = 3;
                     //TODO:
-                    hazards[i].deathfn = goDeathPlastic;
+                    hazards[i].deathfn = goDeathOil;
                     
                     
                     // defaults
@@ -205,7 +205,7 @@ void hazardFactory(int htype) {
 
                 case CYANIDE:
 
-                    cooldownTimer = 99;
+                    cooldownTimer = 59;
 
                     hazards[i].hazardType = CYANIDE;
                     hazards[i].active = 1;
@@ -222,7 +222,7 @@ void hazardFactory(int htype) {
                     hazards[i].spriteIndex = OFFSET(0,24,32);
                     hazards[i].size = 3;
                     //TODO:
-                    hazards[i].deathfn = goDeathPlastic;
+                    hazards[i].deathfn = goDeathCyanide;
                     
                     
                     // defaults
@@ -235,7 +235,7 @@ void hazardFactory(int htype) {
 
                 case BOAT:
 
-                    cooldownTimer = 59;
+                    cooldownTimer = 49;
 
                     hazards[i].hazardType = BOAT;
                     hazards[i].active = 1;
@@ -249,13 +249,13 @@ void hazardFactory(int htype) {
                     // hazards[i].x = x;
 
                     hazards[i].dx = (hazards[i].isHFlip == 0) ? (rand() % 3) + 1 : -(rand() % 3) - 1;
-                    hazards[i].x = (rand() % 40) + ((hazards[i].dx > 0) ? 0 : 200);
+                    hazards[i].x = (rand() % 40) + ((hazards[i].dx > 0) ? 0 : 1500);
 
                     hazards[i].y = -hazards[i].height * 8;
                     hazards[i].spriteIndex = OFFSET(0,8,32);
                     hazards[i].size = 3;
                     //TODO:
-                    hazards[i].deathfn = goDeathPlastic;
+                    hazards[i].deathfn = goDeathBoat;
                     
                     
                     // defaults
@@ -268,13 +268,14 @@ void hazardFactory(int htype) {
 
 
                 case DYNAMITE:
-                    cooldownTimer = 59;
+                    cooldownTimer = 36;
 
                     hazards[i].hazardType = DYNAMITE;
                     hazards[i].active = 1;
                     hazards[i].height = 32;
                     hazards[i].width = 32;
 
+                    x = (rand() % 240 - hazards[i].width) * 8;
                     while (checkHazardSpawnLocation(x, hazards[i].width, hazards[i].height)) {
                         x = (rand() % 240 - hazards[i].width) * 8;
                     }
@@ -282,7 +283,7 @@ void hazardFactory(int htype) {
                     
                     hazards[i].y = -hazards[i].height * 8;
                     hazards[i].size = 2;
-                    hazards[i].deathfn = goDeathPlastic;
+                    hazards[i].deathfn = goDeathDynamite;
                     
                     //animation
                     hazards[i].isAnimated = 1;
@@ -351,7 +352,9 @@ int minmin(int a, int b) {
 
 void updateAndDrawHazards() { // MATCH UPDATE AND DRAW SHELLS
     cooldownTimer--;
-    if (time % 60 == 0 && cooldownTimer < 0 && (time / 60) < 120) { // every 1 seconds
+
+    //    gamespeed factor                 cooldown            2 minute hard stop
+    if (time % (120 / gameSpeed) == 0 && cooldownTimer < 0 && (time / 60) < 120) {
         newHazard();
     }
 
@@ -399,6 +402,7 @@ void updateAndDrawHazards() { // MATCH UPDATE AND DRAW SHELLS
                 } else {
                     //TODO:
                     pauseSounds();
+                    shieldTime = 0;
                     hazards[i].deathfn();
                     //goDeathPlastic();
                 }
@@ -441,7 +445,9 @@ void initHazards() {
         hazards[i].active = 0;
     }
     int shieldTime = 0;
+    shieldTime = 0;
     int cooldownTimer = 0;
+    cooldownTimer = 0;
 }
 
 int checkHazardCollision() {

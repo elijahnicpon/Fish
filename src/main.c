@@ -69,12 +69,36 @@ int main() {
                 doDeathEnergy();
                 break;
 
+            case DEATH_PLASTIC:
+                doDeathPlastic();
+                break;
+
+            case DEATH_SHARK:
+                doDeathShark();
+                break;
+
+            case DEATH_OIL:
+                doDeathOil();
+                break;
+
+            case DEATH_CYANIDE:
+                doDeathCyanide();
+                break;
+
+            case DEATH_BOAT:
+                doDeathBoat();
+                break;
+
+            case DEATH_BLAST:
+                doDeathDynamite();
+                break;
+
             case UPGRADE_MENU:
                 doUpgradeMenu();
                 break;
 
-            case DEATH_PLASTIC:
-                doDeathPlastic();
+            case END_MENU:
+                doWin();
                 break;
             
             default:

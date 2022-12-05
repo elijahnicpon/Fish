@@ -1,0 +1,2 @@
+void doDeathBoat();
+void goDeathBoat();

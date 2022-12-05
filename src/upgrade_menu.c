@@ -12,9 +12,9 @@ int state, hOff, vOff, time;
 OBJ_ATTR shadowOAM[128];
 Player player;
 
-int shieldUpgradeCosts[6] = {50, 100, 250, 500, 1000, 0};
-int agilityUpgradeCosts[6] = {10, 25, 50, 100, 250, 0};
-int energyUpgradeCosts[6] = {5, 50, 100, 250, 500, 0};
+int shieldUpgradeCosts[6] = {50, 100, 250, 500, 1000, 9999};
+int agilityUpgradeCosts[6] = {10, 25, 50, 100, 250, 9999};
+int energyUpgradeCosts[6] = {5, 50, 100, 250, 500, 9999};
 int cheatUsed;
 
 void attemptUpgradeAgility();

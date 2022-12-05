@@ -1,0 +1,2 @@
+void goDeathShark();
+void doDeathShark();

@@ -1,0 +1,2 @@
+void doDeathOil();
+void goDeathOil();

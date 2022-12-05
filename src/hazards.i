@@ -149,18 +149,38 @@ void doAboutMenu();
 void goDeathEnergy();
 void doDeathEnergy();
 # 7 "states.h" 2
-# 1 "upgrade_menu.h" 1
-void doUpgradeMenu();
-void goUpgradeMenu();
-# 8 "states.h" 2
-# 1 "controls_menu.h" 1
-void goControlsMenu();
-void doControlsMenu();
-# 9 "states.h" 2
 # 1 "death_plastic.h" 1
 void goDeathPlastic();
 void doDeathPlastic();
+# 8 "states.h" 2
+# 1 "death_boat.h" 1
+void doDeathBoat();
+void goDeathBoat();
+# 9 "states.h" 2
+# 1 "death_oil.h" 1
+void doDeathOil();
+void goDeathOil();
 # 10 "states.h" 2
+# 1 "death_cyanide.h" 1
+void goDeathCyanide();
+void doDeathCyanide();
+# 11 "states.h" 2
+# 1 "death_dynamite.h" 1
+void goDeathDynamite();
+void doDeathDynamite();
+# 12 "states.h" 2
+# 1 "death_shark.h" 1
+void goDeathShark();
+void doDeathShark();
+# 13 "states.h" 2
+# 1 "upgrade_menu.h" 1
+void doUpgradeMenu();
+void goUpgradeMenu();
+# 14 "states.h" 2
+# 1 "controls_menu.h" 1
+void goControlsMenu();
+void doControlsMenu();
+# 15 "states.h" 2
 # 1 "sound.h" 1
 
 
@@ -186,10 +206,15 @@ typedef struct{
 
 SOUND soundA;
 SOUND soundB;
-# 11 "states.h" 2
+# 16 "states.h" 2
+# 1 "win.h" 1
+void doWin();
+void goWin();
+# 17 "states.h" 2
 
 
-enum STATE {START_MENU, INFO_MENU, CONTROLS_MENU, ABOUT_MENU, GAME, PAUSE, UPGRADE_MENU, END_ANIMATION, END_MENU, DEATH_ENERGY, DEATH_PLASTIC, DEATH_OIL, DAETH_BOAT, DEATH_SHARK, DEATH_CYANIDE, DEATH_BLAST};
+
+enum STATE {START_MENU, INFO_MENU, CONTROLS_MENU, ABOUT_MENU, GAME, PAUSE, UPGRADE_MENU, END_ANIMATION, END_MENU, DEATH_ENERGY, DEATH_PLASTIC, DEATH_OIL, DEATH_BOAT, DEATH_SHARK, DEATH_CYANIDE, DEATH_BLAST};
 int state;
 int shells_owned;
 int time;
@@ -1479,7 +1504,7 @@ extern const unsigned int shield_length;
 extern const signed char shield_data[];
 # 12 "hazards.c" 2
 
-int time, shieldTime, cooldownTimer;
+int time, shieldTime, cooldownTimer, gameSpeed;
 Player player;
 OBJ_ATTR shadowOAM[128];
 
@@ -1539,8 +1564,8 @@ void hazardFactory(int htype) {
 
                     hazards[i].hazardType = BAG;
                     hazards[i].active = 1;
-                    hazards[i].height = 12;
-                    hazards[i].width = 22;
+                    hazards[i].height = 22;
+                    hazards[i].width = 18;
 
 
                     x = (rand() % 240 - hazards[i].width) * 8;
@@ -1614,7 +1639,7 @@ void hazardFactory(int htype) {
                 case SHARK:
                     hazards[i].hazardType = SHARK;
                     hazards[i].active = 1;
-                    hazards[i].height = 43;
+                    hazards[i].height = 45;
                     hazards[i].width = 20;
 
                     x = (rand() % 240 - hazards[i].width) * 8;
@@ -1625,7 +1650,7 @@ void hazardFactory(int htype) {
 
                     hazards[i].y = -hazards[i].height * 8;
                     hazards[i].size = 3;
-                    hazards[i].deathfn = goDeathPlastic;
+                    hazards[i].deathfn = goDeathShark;
 
 
                     hazards[i].isAnimated = 1;
@@ -1644,7 +1669,7 @@ void hazardFactory(int htype) {
 
                 case OIL:
 
-                    cooldownTimer = 99;
+                    cooldownTimer = 59;
 
                     hazards[i].hazardType = OIL;
                     hazards[i].active = 1;
@@ -1661,7 +1686,7 @@ void hazardFactory(int htype) {
                     hazards[i].spriteIndex = ((24) * (32) + (8));
                     hazards[i].size = 3;
 
-                    hazards[i].deathfn = goDeathPlastic;
+                    hazards[i].deathfn = goDeathOil;
 
 
 
@@ -1674,7 +1699,7 @@ void hazardFactory(int htype) {
 
                 case CYANIDE:
 
-                    cooldownTimer = 99;
+                    cooldownTimer = 59;
 
                     hazards[i].hazardType = CYANIDE;
                     hazards[i].active = 1;
@@ -1691,7 +1716,7 @@ void hazardFactory(int htype) {
                     hazards[i].spriteIndex = ((24) * (32) + (0));
                     hazards[i].size = 3;
 
-                    hazards[i].deathfn = goDeathPlastic;
+                    hazards[i].deathfn = goDeathCyanide;
 
 
 
@@ -1704,7 +1729,7 @@ void hazardFactory(int htype) {
 
                 case BOAT:
 
-                    cooldownTimer = 59;
+                    cooldownTimer = 49;
 
                     hazards[i].hazardType = BOAT;
                     hazards[i].active = 1;
@@ -1718,13 +1743,13 @@ void hazardFactory(int htype) {
 
 
                     hazards[i].dx = (hazards[i].isHFlip == 0) ? (rand() % 3) + 1 : -(rand() % 3) - 1;
-                    hazards[i].x = (rand() % 40) + ((hazards[i].dx > 0) ? 0 : 200);
+                    hazards[i].x = (rand() % 40) + ((hazards[i].dx > 0) ? 0 : 1500);
 
                     hazards[i].y = -hazards[i].height * 8;
                     hazards[i].spriteIndex = ((8) * (32) + (0));
                     hazards[i].size = 3;
 
-                    hazards[i].deathfn = goDeathPlastic;
+                    hazards[i].deathfn = goDeathBoat;
 
 
 
@@ -1737,13 +1762,14 @@ void hazardFactory(int htype) {
 
 
                 case DYNAMITE:
-                    cooldownTimer = 59;
+                    cooldownTimer = 36;
 
                     hazards[i].hazardType = DYNAMITE;
                     hazards[i].active = 1;
                     hazards[i].height = 32;
                     hazards[i].width = 32;
 
+                    x = (rand() % 240 - hazards[i].width) * 8;
                     while (checkHazardSpawnLocation(x, hazards[i].width, hazards[i].height)) {
                         x = (rand() % 240 - hazards[i].width) * 8;
                     }
@@ -1751,7 +1777,7 @@ void hazardFactory(int htype) {
 
                     hazards[i].y = -hazards[i].height * 8;
                     hazards[i].size = 2;
-                    hazards[i].deathfn = goDeathPlastic;
+                    hazards[i].deathfn = goDeathDynamite;
 
 
                     hazards[i].isAnimated = 1;
@@ -1820,7 +1846,9 @@ int minmin(int a, int b) {
 
 void updateAndDrawHazards() {
     cooldownTimer--;
-    if (time % 60 == 0 && cooldownTimer < 0 && (time / 60) < 120) {
+
+
+    if (time % (120 / gameSpeed) == 0 && cooldownTimer < 0 && (time / 60) < 120) {
         newHazard();
     }
 
@@ -1868,6 +1896,7 @@ void updateAndDrawHazards() {
                 } else {
 
                     pauseSounds();
+                    shieldTime = 0;
                     hazards[i].deathfn();
 
                 }
@@ -1910,7 +1939,9 @@ void initHazards() {
         hazards[i].active = 0;
     }
     int shieldTime = 0;
+    shieldTime = 0;
     int cooldownTimer = 0;
+    cooldownTimer = 0;
 }
 
 int checkHazardCollision() {
