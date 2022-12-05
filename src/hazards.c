@@ -290,7 +290,7 @@ void hazardFactory(int htype) {
                     hazards[i].frame = 0;
                     hazards[i].spriteIndex = dynamiteFrames[hazards[i].frame];
                     hazards[i].numFrames = 10;
-                    hazards[i].timeToDisplayFrame = 16 + (rand() % 3);
+                    hazards[i].timeToDisplayFrame = 10 + (rand() % 3);
                     
                     // defaults
                     hazards[i].isTall = 0;
@@ -434,6 +434,7 @@ void resetHazards() {
     for (int i = 0; i < NUM_HAZARDS; i++) {
         hazards[i].oam_entry = 60 + i;
         hazards[i].active = 0;
+        hazards[i].spriteIndex = OFFSET(24,24,32);
     }
     shieldTime = 0;
     cooldownTimer = 0;

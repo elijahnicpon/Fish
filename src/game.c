@@ -513,6 +513,7 @@ void goGame(int seed) {
     initShells();
     initEnergyBar();
     initHazards();
+    resetHazards();
 
     vOff = 0;
     int cloudVOff = 0;
