@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int state, vOff, cloudVOff, gameSpeed, time, shells_owned; 
+int state, vOff, cloudVOff, gameSpeed, time, shells_owned, cloudsOn; 
 OBJ_ATTR shadowOAM[128];
 
 void updateBackgrounds();
@@ -210,12 +210,18 @@ void initShells() {
     }
 }
 
+int shellVals[8] = {1,2,4,8,8,8,8,8};
+
 void newShell() {
     for (int i = 0; i < NUM_SHELLS; i++) {
         if (!shells[i].active) {
             //TODO: balance shell vals
             //shells[i].value = min(8, powpow(2, (time / 1200 * (rand() % 4))));
-            shells[i].value = min(8, powpow(2, time / 120) * (rand() % 2 == 0) ? 2 : 1);
+            int shellValIndex = (time/(60*25));
+            if (rand() % 2 == 0) {
+                shellValIndex++;
+            }
+            shells[i].value = shellVals[shellValIndex];
             shells[i].x = (rand() % 240) * 8;
             shells[i].y = -8*8;
             shells[i].active = 1;
@@ -232,6 +238,10 @@ void newShell() {
                     break;
                 case 8:
                     shells[i].paletteIndex = 3;
+                    break;
+                default:
+                    shells[i].paletteIndex = 3;
+                    break;
             }
             break;
         }
@@ -249,6 +259,22 @@ int powpow(int base, int exp) {
     return returnme;
 }
 
+void toggleCloudsOn() {
+    cloudsOn = 1;
+    DMANow(3, game_clouds_bgTiles, &CHARBLOCK[1], game_clouds_bgTilesLen/2);
+    DMANow(3, game_clouds_bgMap, &SCREENBLOCK[30], game_clouds_bgMapLen/2);
+    DMANow(3, game_clouds_SHADOW_bgTiles, &CHARBLOCK[2], game_clouds_SHADOW_bgTilesLen/2);
+    DMANow(3, game_clouds_SHADOW_bgMap, &SCREENBLOCK[29], game_clouds_SHADOW_bgMapLen/2);
+}
+
+void toggleCloudsOff() {
+    cloudsOn = 0;
+    for (int i = 0; i < 1024; i++) {
+        SCREENBLOCK[29].tilemap[i] = 0;
+        SCREENBLOCK[30].tilemap[i] = 0;
+    }
+}
+
 void updateAndDrawPlayer() {
 
     player.energy--;
@@ -259,6 +285,24 @@ void updateAndDrawPlayer() {
 
     if (player.agilityUpgradeValue == 5 && player.energyUpgradeValue == 5 && player.shieldUpgradeValue == 5) {
         SPRITEPALETTE[12]++; //change ss pal @ runtime :)
+        // CHARBLOCK[4].tileimg[OFFSET(4,0,8*32)] = 15;
+        // CHARBLOCK[4].tileimg[OFFSET((16 * 1) + 5, 0, 8*32)] = 15;
+        // CHARBLOCK[4].tileimg[OFFSET((16 * 2) + 6, 0, 8*32)] = 15;
+        // CHARBLOCK[4].tileimg[OFFSET((16 * 3) + 5, 0, 8*32)] = 15;
+        // CHARBLOCK[4].tileimg[OFFSET((16 * 4) + 5, 0, 8*32)] = 15;
+        // for (int i = 0; i < 4; i++) {
+        //     for (int j = 0; j < 4; j++) {
+        //         // CHARBLOCK[4].tileimg[OFFSET((8*4) + (i*2), j, 8 * 32)] = 15 | (15<<8);
+        //         // CHARBLOCK[4].tileimg[OFFSET(j, (8*4) + (i*2), 8 * 32)] = 15 | (15<<8);
+        //     }
+        // }
+        // if (BUTTON_HELD(BUTTON_SELECT)) {
+        //     for (int i = 0; i < 1024; i++) {
+        //         SCREENBLOCK[29].tilemap[i] = 0;
+        //     }
+        // }
+
+
     }
 
 
@@ -278,6 +322,14 @@ void prepWin() {
 }
 
 void checkButtons() {
+    if (BUTTON_PRESSED(BUTTON_SELECT)) {
+        if (cloudsOn) {
+            toggleCloudsOff();
+        } else {
+            toggleCloudsOn();
+        }
+    }
+
     if (BUTTON_PRESSED(BUTTON_START)) {
         pauseSounds();
         goPause();
@@ -518,8 +570,10 @@ void goGame(int seed) {
     vOff = 0;
     int cloudVOff = 0;
     int gameSpeed = 2;
+    int cloudsOn = 1;
     gameSpeed = 2;
     time = 0;
+    cloudsOn = 1;
 
     DMANow(3, shadowOAM, OAM, 512);
 

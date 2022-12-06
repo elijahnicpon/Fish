@@ -76,7 +76,7 @@ void hazardFactory(int htype) {
 
                     x = (rand() % 240 - hazards[i].width) * 8;
                     while (checkHazardSpawnLocation(x, hazards[i].width, hazards[i].height)) {
-                        x = (rand() % 240 - hazards[i].width) * 8;
+                        x = (rand() % 240 - (hazards[i].width / 2)) * 8;
                     }
                     hazards[i].x = x;
 
@@ -124,7 +124,7 @@ void hazardFactory(int htype) {
 
                     x = (rand() % 240 - hazards[i].width) * 8;
                     while (checkHazardSpawnLocation(x, hazards[i].width, hazards[i].height)) {
-                        x = (rand() % 240 - hazards[i].width) * 8;
+                        x = (rand() % 240 - (hazards[i].width / 2)) * 8;
                     }
                     hazards[i].x = x;
 
@@ -150,7 +150,7 @@ void hazardFactory(int htype) {
 
                     x = (rand() % 240 - hazards[i].width) * 8;
                     while (checkHazardSpawnLocation(x, hazards[i].width, hazards[i].height)) {
-                        x = (rand() % 240 - hazards[i].width) * 8;
+                        x = (rand() % 240 - (hazards[i].width / 2)) * 8;
                     }
                     hazards[i].x = x;
                     
@@ -184,7 +184,7 @@ void hazardFactory(int htype) {
 
                     x = (rand() % 240 - hazards[i].width) * 8;
                     while (checkHazardSpawnLocation(x, hazards[i].width, hazards[i].height)) {
-                        x = (rand() % 240 - hazards[i].width) * 8;
+                        x = (rand() % 240 - (hazards[i].width / 2)) * 8;
                     }
                     hazards[i].x = x;
 
@@ -214,7 +214,7 @@ void hazardFactory(int htype) {
 
                     x = (rand() % 240 - hazards[i].width) * 8;
                     while (checkHazardSpawnLocation(x, hazards[i].width, hazards[i].height)) {
-                        x = (rand() % 240 - hazards[i].width) * 8;
+                        x = (rand() % 240 - (hazards[i].width / 2)) * 8;
                     }
                     hazards[i].x = x;
 
@@ -277,7 +277,7 @@ void hazardFactory(int htype) {
 
                     x = (rand() % 240 - hazards[i].width) * 8;
                     while (checkHazardSpawnLocation(x, hazards[i].width, hazards[i].height)) {
-                        x = (rand() % 240 - hazards[i].width) * 8;
+                        x = (rand() % 240 - (hazards[i].width / 2)) * 8;
                     }
                     hazards[i].x = x;
                     

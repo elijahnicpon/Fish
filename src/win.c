@@ -43,7 +43,7 @@ void drawWin() {
     shadowOAM[0].attr2 = OFFSET(0,2,32);
 
     if (clark.active) {
-        if (wintime % 10 == 0) {
+        if (wintime % 7 == 0) {
             clark.frame = (clark.frame + 1) % 4;
             clark.x++;
             if (clark.y > 111) {
