@@ -39,10 +39,10 @@ void goPause() {
     DMANow(3, pause_and_about_menus_ssPal, SPRITEPALETTE, pause_and_about_menus_ssPalLen/2);
     DMANow(3, pause_and_about_menus_ssTiles, &CHARBLOCK[4], pause_and_about_menus_ssTilesLen/2);
     //Draw Pause.
-    shadowOAM[0].attr0 = ATTR0_4BPP | ATTR0_WIDE | (46 & 0xFF);
+    shadowOAM[0].attr0 = ATTR0_4BPP | ATTR0_WIDE | (38 & 0xFF);
     shadowOAM[0].attr1 = ATTR1_LARGE | (10 & 0x1FF);
     shadowOAM[0].attr2 = OFFSET(0,0,32);
-    shadowOAM[1].attr0 = ATTR0_4BPP | ATTR0_WIDE | (46 & 0xFF);
+    shadowOAM[1].attr0 = ATTR0_4BPP | ATTR0_WIDE | (38 & 0xFF);
     shadowOAM[1].attr1 = ATTR1_LARGE | (74 & 0x1FF);
     shadowOAM[1].attr2 = OFFSET(8,0,32);
 
