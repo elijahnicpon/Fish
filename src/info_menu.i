@@ -3,7 +3,7 @@
 # 1 "<command-line>"
 # 1 "info_menu.c"
 # 1 "info_menu.h" 1
-void goInfoMenu();
+void goInfoMenu(void (*returnTo)());
 void doInfoMenu();
 # 2 "info_menu.c" 2
 # 1 "states.h" 1
@@ -12,7 +12,7 @@ void goStartMenu();
 void doStartMenu();
 # 2 "states.h" 2
 # 1 "info_menu.h" 1
-void goInfoMenu();
+void goInfoMenu(void (*returnTo)());
 void doInfoMenu();
 # 3 "states.h" 2
 # 1 "game.h" 1
@@ -26,7 +26,7 @@ void goPause();
 void doPause();
 # 5 "states.h" 2
 # 1 "about_menu.h" 1
-void goAboutMenu();
+void goAboutMenu(void (*returnTo)());
 void doAboutMenu();
 # 6 "states.h" 2
 # 1 "death_energy.h" 1
@@ -254,24 +254,29 @@ extern const unsigned short start_menus_ssPal[256];
 
 int state, hOff, vOff;
 OBJ_ATTR shadowOAM[128];
+void (*returnFn)();
 
 
 void doInfoMenu() {
     if ((!(~(oldButtons) & ((1<<0))) && (~buttons & ((1<<0))))) {
-        goAboutMenu();
+
+        goAboutMenu(returnFn);
     }
     if ((!(~(oldButtons) & ((1<<1))) && (~buttons & ((1<<1))))) {
         goControlsMenu();
     }
     if ((!(~(oldButtons) & ((1<<2))) && (~buttons & ((1<<2))))) {
-        goStartMenu();
+        returnFn();
     }
     waitForVBlank();
     hOff += 1;
     (*(volatile unsigned short *)0x04000010) = hOff / 8;
 }
 
-void goInfoMenu() {
+void goInfoMenu(void (*returnTo)()) {
+
+
+    returnFn = returnTo;
 
     hideSprites();
 
@@ -286,7 +291,7 @@ void goInfoMenu() {
     DMANow(3, start_menus_ssPal, ((unsigned short *)0x5000200), 512/2);
     DMANow(3, start_menus_ssTiles, &((charblock *)0x6000000)[4], 32768/2);
 
-    hOff = 0;
+
 
     shadowOAM[0].attr0 = (0 << 13) | (40 & 0xFF);
     shadowOAM[0].attr1 = (3 << 14) | (32 & 0x1FF);

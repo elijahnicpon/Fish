@@ -31,33 +31,31 @@ doControlsMenu:
 	tst	r3, #4
 	beq	.L8
 .L2:
-	ldr	r4, .L9+8
-	ldr	r3, .L9+12
+	ldr	r3, .L9+8
 	mov	lr, pc
 	bx	r3
-	ldr	r3, [r4]
-	add	r1, r3, #1
-	cmp	r1, #0
+	ldr	ip, .L9+12
+	ldr	r3, [ip]
+	add	r2, r3, #1
+	cmp	r2, #0
 	addlt	r3, r3, #8
-	movge	r3, r1
-	mov	ip, #0
-	mov	r0, #67108864
-	ldr	lr, .L9+16
+	movge	r3, r2
+	mov	r0, #0
+	mov	r1, #67108864
 	asr	r3, r3, #3
-	ldr	r2, [lr]
-	str	r1, [r4]
+	ldr	lr, .L9+16
 	lsl	r3, r3, #16
-	ldr	r1, .L9+20
 	lsr	r3, r3, #16
-	add	r2, r2, #1
-	str	r2, [lr]
-	str	ip, [r1]
+	str	r0, [lr]
+	str	r2, [ip]
 	pop	{r4, lr}
-	strh	ip, [r0, #18]	@ movhi
-	strh	r3, [r0, #16]	@ movhi
+	strh	r0, [r1, #18]	@ movhi
+	strh	r3, [r1, #16]	@ movhi
 	bx	lr
 .L8:
+	ldr	r2, .L9+20
 	ldr	r3, .L9+24
+	ldr	r0, [r2]
 	mov	lr, pc
 	bx	r3
 	b	.L2
@@ -66,10 +64,10 @@ doControlsMenu:
 .L9:
 	.word	oldButtons
 	.word	buttons
-	.word	hOff
 	.word	waitForVBlank
-	.word	time
+	.word	hOff
 	.word	vOff
+	.word	returnFn
 	.word	goInfoMenu
 	.size	doControlsMenu, .-doControlsMenu
 	.align	2
@@ -204,6 +202,7 @@ goControlsMenu:
 	.word	-32634
 	.word	16532
 	.size	goControlsMenu, .-goControlsMenu
+	.comm	returnFn,4,4
 	.comm	shadowOAM,1024,4
 	.comm	vOff,4,4
 	.comm	hOff,4,4

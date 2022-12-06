@@ -14,7 +14,7 @@ void goStartMenu();
 void doStartMenu();
 # 2 "states.h" 2
 # 1 "info_menu.h" 1
-void goInfoMenu();
+void goInfoMenu(void (*returnTo)());
 void doInfoMenu();
 # 3 "states.h" 2
 # 1 "game.h" 1
@@ -28,7 +28,7 @@ void goPause();
 void doPause();
 # 5 "states.h" 2
 # 1 "about_menu.h" 1
-void goAboutMenu();
+void goAboutMenu(void (*returnTo)());
 void doAboutMenu();
 # 6 "states.h" 2
 # 1 "death_energy.h" 1
@@ -1760,14 +1760,7 @@ void updateAndDrawPlayer() {
 
     if (player.agilityUpgradeValue == 5 && player.energyUpgradeValue == 5 && player.shieldUpgradeValue == 5) {
         ((unsigned short *)0x5000200)[12]++;
-# 299 "game.c"
-        if ((~((*(volatile unsigned short *)0x04000130)) & ((1<<2)))) {
-            for (int i = 0; i < 1024; i++) {
-                ((screenblock *)0x6000000)[29].tilemap[i] = 0;
-            }
-        }
-
-
+# 306 "game.c"
     }
 
 

@@ -16,7 +16,7 @@ void doStartMenu() {
         goGame(time);
     }
     if (BUTTON_PRESSED(BUTTON_SELECT)) {
-        goInfoMenu();
+        goInfoMenu(goStartMenu);
     }
     waitForVBlank();
     hOff += 1;

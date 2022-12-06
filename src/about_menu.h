@@ -1,2 +1,2 @@
-void goAboutMenu();
+void goAboutMenu(void (*returnTo)());
 void doAboutMenu();

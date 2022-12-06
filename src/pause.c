@@ -13,6 +13,9 @@ void doPause() {
         resumeGame();
     }
     if (BUTTON_PRESSED(BUTTON_SELECT)) {
+        goInfoMenu(goPause);
+    }
+    if (BUTTON_HELD(BUTTON_A) && BUTTON_HELD(BUTTON_B)) {
         goStartMenu();
     }
     waitForVBlank();
@@ -44,15 +47,27 @@ void goPause() {
     shadowOAM[1].attr2 = OFFSET(8,0,32);
 
     // Draw Pause Options.
-    shadowOAM[2].attr0 = ATTR0_4BPP | ATTR0_WIDE | (40 & 0xFF);
+    // shadowOAM[2].attr0 = ATTR0_4BPP | ATTR0_WIDE | (40 & 0xFF);
+    // shadowOAM[2].attr1 = ATTR1_LARGE | (90 & 0x1FF);
+    // shadowOAM[2].attr2 = OFFSET(0,8,32);
+
+    // shadowOAM[3].attr0 = ATTR0_4BPP | ATTR0_WIDE | (40 & 0xFF);
+    // shadowOAM[3].attr1 = ATTR1_LARGE | (154 & 0x1FF);
+    // shadowOAM[3].attr2 = OFFSET(8,8,32);
+
+    // shadowOAM[4].attr0 = ATTR0_4BPP | ATTR0_WIDE | (40 & 0xFF);
+    // shadowOAM[4].attr1 = ATTR1_LARGE | (218 & 0x1FF);
+    // shadowOAM[4].attr2 = OFFSET(16,8,32);
+
+    shadowOAM[2].attr0 = ATTR0_4BPP | (20 & 0xFF);
     shadowOAM[2].attr1 = ATTR1_LARGE | (90 & 0x1FF);
     shadowOAM[2].attr2 = OFFSET(0,8,32);
 
-    shadowOAM[3].attr0 = ATTR0_4BPP | ATTR0_WIDE | (40 & 0xFF);
+    shadowOAM[3].attr0 = ATTR0_4BPP | (20 & 0xFF);
     shadowOAM[3].attr1 = ATTR1_LARGE | (154 & 0x1FF);
     shadowOAM[3].attr2 = OFFSET(8,8,32);
 
-    shadowOAM[4].attr0 = ATTR0_4BPP | ATTR0_WIDE | (40 & 0xFF);
+    shadowOAM[4].attr0 = ATTR0_4BPP | (20 & 0xFF);
     shadowOAM[4].attr1 = ATTR1_LARGE | (218 & 0x1FF);
     shadowOAM[4].attr2 = OFFSET(16,8,32);
 

@@ -12,7 +12,7 @@ void goStartMenu();
 void doStartMenu();
 # 2 "states.h" 2
 # 1 "info_menu.h" 1
-void goInfoMenu();
+void goInfoMenu(void (*returnTo)());
 void doInfoMenu();
 # 3 "states.h" 2
 # 1 "game.h" 1
@@ -26,7 +26,7 @@ void goPause();
 void doPause();
 # 5 "states.h" 2
 # 1 "about_menu.h" 1
-void goAboutMenu();
+void goAboutMenu(void (*returnTo)());
 void doAboutMenu();
 # 6 "states.h" 2
 # 1 "death_energy.h" 1
@@ -254,20 +254,30 @@ extern const unsigned short controls_menu_ssPal[256];
 
 int state, hOff, vOff, time;
 OBJ_ATTR shadowOAM[128];
+void (*returnFn)();
+
 
 void doControlsMenu() {
     if ((!(~(oldButtons) & ((1<<2))) && (~buttons & ((1<<2))))) {
-        goInfoMenu();
+
+
+        goInfoMenu(returnFn);
     }
     waitForVBlank();
     hOff += 1;
     vOff = 0;
-    time++;
+
     (*(volatile unsigned short *)0x04000012) = vOff;
     (*(volatile unsigned short *)0x04000010) = hOff / 8;
 }
 
-void goControlsMenu() {
+void goControlsMenu(void (*returnTo)()) {
+
+
+    void* returnFn = returnTo;
+    returnFn = returnTo;
+
+
     hideSprites();
     state = CONTROLS_MENU;
 

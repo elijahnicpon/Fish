@@ -1,2 +1,2 @@
-void goInfoMenu();
+void goInfoMenu(void (*returnTo)());
 void doInfoMenu();

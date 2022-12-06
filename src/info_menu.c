@@ -7,24 +7,29 @@
 
 int state, hOff, vOff;
 OBJ_ATTR shadowOAM[128];
+void (*returnFn)();
 
 
 void doInfoMenu() {
     if (BUTTON_PRESSED(BUTTON_A)) {
-        goAboutMenu();
+        //goAboutMenu(goInfoMenu, returnFn);
+        goAboutMenu(returnFn);
     }
     if (BUTTON_PRESSED(BUTTON_B)) {
         goControlsMenu();
     }
     if (BUTTON_PRESSED(BUTTON_SELECT)) {
-        goStartMenu();
+        returnFn();
     }
     waitForVBlank();
     hOff += 1;
     REG_BG0HOFF = hOff / 8;
 }
 
-void goInfoMenu() {
+void goInfoMenu(void (*returnTo)()) {
+
+    // void* returnFn = returnTo;    
+    returnFn = returnTo;
 
     hideSprites();
 
@@ -39,7 +44,7 @@ void goInfoMenu() {
     DMANow(3, start_menus_ssPal, SPRITEPALETTE, start_menus_ssPalLen/2);
     DMANow(3, start_menus_ssTiles, &CHARBLOCK[4], start_menus_ssTilesLen/2);
 
-    hOff = 0;
+    //hOff = 0;
 
     shadowOAM[0].attr0 = ATTR0_4BPP | (40 & 0xFF);
     shadowOAM[0].attr1 = ATTR1_LARGE | (32 & 0x1FF);

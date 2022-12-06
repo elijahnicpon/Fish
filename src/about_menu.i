@@ -12,7 +12,7 @@ void goStartMenu();
 void doStartMenu();
 # 2 "states.h" 2
 # 1 "info_menu.h" 1
-void goInfoMenu();
+void goInfoMenu(void (*returnTo)());
 void doInfoMenu();
 # 3 "states.h" 2
 # 1 "game.h" 1
@@ -26,7 +26,7 @@ void goPause();
 void doPause();
 # 5 "states.h" 2
 # 1 "about_menu.h" 1
-void goAboutMenu();
+void goAboutMenu(void (*returnTo)());
 void doAboutMenu();
 # 6 "states.h" 2
 # 1 "death_energy.h" 1
@@ -254,20 +254,28 @@ extern const unsigned short pause_and_about_menus_ssPal[256];
 
 int state, hOff, vOff, time;
 OBJ_ATTR shadowOAM[128];
+void (*returnFn)();
+
 
 void doAboutMenu() {
     if ((!(~(oldButtons) & ((1<<2))) && (~buttons & ((1<<2))))) {
-        goInfoMenu();
+
+
+        goInfoMenu(returnFn);
     }
     waitForVBlank();
     hOff += 1;
     vOff = 0;
-    time++;
+
     (*(volatile unsigned short *)0x04000012) = vOff;
     (*(volatile unsigned short *)0x04000010) = hOff / 8;
 }
 
-void goAboutMenu() {
+void goAboutMenu(void (*returnTo)()) {
+
+
+    returnFn = returnTo;
+
     hideSprites();
     state = ABOUT_MENU;
 
@@ -312,10 +320,10 @@ void goAboutMenu() {
 
     shadowOAM[8].attr0 = (0 << 13) | (1 << 14) | (148 & 0xFF);
     shadowOAM[8].attr1 = (3 << 14) | (80 & 0x1FF);
-    shadowOAM[8].attr2 = ((13) * (32) + (0));
+    shadowOAM[8].attr2 = ((0) * (32) + (16));
     shadowOAM[9].attr0 = (0 << 13) | (1 << 14) | (148 & 0xFF);
     shadowOAM[9].attr1 = (3 << 14) | (144 & 0x1FF);
-    shadowOAM[9].attr2 = ((13) * (32) + (8));
+    shadowOAM[9].attr2 = ((0) * (32) + (24));
 
     DMANow(3, shadowOAM, ((OBJ_ATTR*)(0x7000000)), 512);
 }

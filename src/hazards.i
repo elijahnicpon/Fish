@@ -128,7 +128,7 @@ void goStartMenu();
 void doStartMenu();
 # 2 "states.h" 2
 # 1 "info_menu.h" 1
-void goInfoMenu();
+void goInfoMenu(void (*returnTo)());
 void doInfoMenu();
 # 3 "states.h" 2
 # 1 "game.h" 1
@@ -142,7 +142,7 @@ void goPause();
 void doPause();
 # 5 "states.h" 2
 # 1 "about_menu.h" 1
-void goAboutMenu();
+void goAboutMenu(void (*returnTo)());
 void doAboutMenu();
 # 6 "states.h" 2
 # 1 "death_energy.h" 1

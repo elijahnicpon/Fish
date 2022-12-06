@@ -12,7 +12,7 @@ void goStartMenu();
 void doStartMenu();
 # 2 "states.h" 2
 # 1 "info_menu.h" 1
-void goInfoMenu();
+void goInfoMenu(void (*returnTo)());
 void doInfoMenu();
 # 3 "states.h" 2
 # 1 "game.h" 1
@@ -26,7 +26,7 @@ void goPause();
 void doPause();
 # 5 "states.h" 2
 # 1 "about_menu.h" 1
-void goAboutMenu();
+void goAboutMenu(void (*returnTo)());
 void doAboutMenu();
 # 6 "states.h" 2
 # 1 "death_energy.h" 1
@@ -260,6 +260,9 @@ void doPause() {
         resumeGame();
     }
     if ((!(~(oldButtons) & ((1<<2))) && (~buttons & ((1<<2))))) {
+        goInfoMenu(goPause);
+    }
+    if ((~((*(volatile unsigned short *)0x04000130)) & ((1<<0))) && (~((*(volatile unsigned short *)0x04000130)) & ((1<<1)))) {
         goStartMenu();
     }
     waitForVBlank();
@@ -289,17 +292,16 @@ void goPause() {
     shadowOAM[1].attr0 = (0 << 13) | (1 << 14) | (46 & 0xFF);
     shadowOAM[1].attr1 = (3 << 14) | (74 & 0x1FF);
     shadowOAM[1].attr2 = ((0) * (32) + (8));
-
-
-    shadowOAM[2].attr0 = (0 << 13) | (1 << 14) | (40 & 0xFF);
+# 62 "pause.c"
+    shadowOAM[2].attr0 = (0 << 13) | (20 & 0xFF);
     shadowOAM[2].attr1 = (3 << 14) | (90 & 0x1FF);
     shadowOAM[2].attr2 = ((8) * (32) + (0));
 
-    shadowOAM[3].attr0 = (0 << 13) | (1 << 14) | (40 & 0xFF);
+    shadowOAM[3].attr0 = (0 << 13) | (20 & 0xFF);
     shadowOAM[3].attr1 = (3 << 14) | (154 & 0x1FF);
     shadowOAM[3].attr2 = ((8) * (32) + (8));
 
-    shadowOAM[4].attr0 = (0 << 13) | (1 << 14) | (40 & 0xFF);
+    shadowOAM[4].attr0 = (0 << 13) | (20 & 0xFF);
     shadowOAM[4].attr1 = (3 << 14) | (218 & 0x1FF);
     shadowOAM[4].attr2 = ((8) * (32) + (16));
 

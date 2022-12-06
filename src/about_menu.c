@@ -7,20 +7,28 @@
 
 int state, hOff, vOff, time;
 OBJ_ATTR shadowOAM[128];
+void (*returnFn)();
+
 
 void doAboutMenu() {
     if (BUTTON_PRESSED(BUTTON_SELECT)) {
-        goInfoMenu();
+        //TODO: menuflow
+        //goInfoMenu();
+        goInfoMenu(returnFn);
     }
     waitForVBlank();
     hOff += 1;
     vOff = 0;
-    time++;
+    // time++;
     REG_BG0VOFF = vOff;
     REG_BG0HOFF = hOff / 8;
 }
 
-void goAboutMenu() {
+void goAboutMenu(void (*returnTo)()) {
+
+    //void* returnFn = returnTo;
+    returnFn = returnTo;
+
     hideSprites();
     state = ABOUT_MENU;
 
@@ -65,10 +73,10 @@ void goAboutMenu() {
     //Draw back instruction
     shadowOAM[8].attr0 = ATTR0_4BPP | ATTR0_WIDE | (148 & 0xFF);
     shadowOAM[8].attr1 = ATTR1_LARGE | (80 & 0x1FF);
-    shadowOAM[8].attr2 = OFFSET(0,13,32);
+    shadowOAM[8].attr2 = OFFSET(16,0,32);
     shadowOAM[9].attr0 = ATTR0_4BPP | ATTR0_WIDE | (148 & 0xFF);
     shadowOAM[9].attr1 = ATTR1_LARGE | (144 & 0x1FF);
-    shadowOAM[9].attr2 = OFFSET(8,13,32);
+    shadowOAM[9].attr2 = OFFSET(24,0,32);
 
     DMANow(3, shadowOAM, OAM, 512);
 }

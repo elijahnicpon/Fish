@@ -7,20 +7,30 @@
 
 int state, hOff, vOff, time;
 OBJ_ATTR shadowOAM[128];
+void (*returnFn)();
+
 
 void doControlsMenu() {
     if (BUTTON_PRESSED(BUTTON_SELECT)) {
-        goInfoMenu();
+        //TODO: menuflow
+        //goInfoMenu();
+        goInfoMenu(returnFn);
     }
     waitForVBlank();
     hOff += 1;
     vOff = 0;
-    time++;
+    // time++;
     REG_BG0VOFF = vOff;
     REG_BG0HOFF = hOff / 8;
 }
 
-void goControlsMenu() {
+void goControlsMenu(void (*returnTo)()) {
+
+
+    void* returnFn = returnTo;
+    returnFn = returnTo;
+
+
     hideSprites();
     state = CONTROLS_MENU;
 
